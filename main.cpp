@@ -9,5 +9,12 @@ using namespace std;
 
 int main()
 {
-  cout<<"hello world";
+  vector<double> datasig; //vectors containing signal values
+  //int xstart, ystart; //starting indices for each signal
+  //char dtype = 'x';
+  double temp;
+ 
+
+  datain(datasig);
+
 }
