@@ -42,13 +42,9 @@ int main()
   cout << "Input number of steps from start to end: ";
   cin >> steps;
 
-  /* -----------NOT YET IMPLEMENTED------------  
-  cin >> form;
-  --------------------------------------------*/
+
   stepSize = (endFreq - startFreq) / steps;
 
-  //DFT COMPUTATION FUNCTION ==================================================
-  //complex<double> fourier[steps] = {};
   vector<complex<double>> fourier;
   DFT(data, fourier, steps, startFreq, stepSize, sampleSize);
 
