@@ -244,11 +244,11 @@ bool showoutput(vector<complex<double>> fourier, int steps, double startFreq, do
   cin>>choice2;
   cout<<"Enter output file name: ";
   cin>>ofn;
-
+  outfile.open(ofn);
   switch(choice2)
   {
     case '1':
-      outfile.open(ofn);
+      outfile << "Analog Frequency (Hz)\tReal Part\t\tImaginary Part" << endl;
       for(int i = 0; i < steps ; i++)
         {
           currentFreq = startFreq + stepSize*i; //analog frequency for current DFT value
@@ -256,6 +256,7 @@ bool showoutput(vector<complex<double>> fourier, int steps, double startFreq, do
         }
       break;
     case '2':
+      outfile << "Analog Frequency (Hz)\tMagnitude\t\tAngle" << endl;
       for(int i = 0; i < steps ; i++)
       {
         currentFreq = startFreq + stepSize*i; //analog frequency for current DFT value
@@ -265,6 +266,6 @@ bool showoutput(vector<complex<double>> fourier, int steps, double startFreq, do
     case '3': 
       break;
   }
-
+  outfile.close();
   return 0;
 }
