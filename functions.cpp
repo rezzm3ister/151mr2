@@ -152,7 +152,7 @@ void showdata(vector<double> data, string ttype)
 void DFT(vector<double> data, vector<complex<double>> &fourier, int steps, double startFreq, double stepSize, int sampleSize)
 {
   const complex<double> j(0.0,1.0); //define imaginary j
-  double pi = 2 * asin(1); //define pi
+  const double pi = 2 * asin(1); //define pi
   double k; //the current frequency
 
   //temporary computational variables
@@ -181,43 +181,90 @@ void DFT(vector<double> data, vector<complex<double>> &fourier, int steps, doubl
 
 bool showoutput(vector<complex<double>> fourier, int steps, double startFreq, double stepSize)
 {
+  ofstream outfile;
+  string ofn;
   double currentFreq=0;
-  char choice = 'n';
-  
+  char choice = 'n', choice2 = 'm';
+  const double pi = 2 * asin(1);
   cout<<"Select Output Form\n";
-  cout<<"1: Rectangular Form\n2: Polar Form\n3: Both forms\n0:Exit\n";
+  cout<<"1: Rectangular Form\n2: Polar Form\n3: Both forms\n0: Exit\n";
   cout<<"Selection: ";
   cin>>choice;
+  cout<<endl<<endl;
 
   switch(choice)
   {
     case '1':
       cout << "Fourier Transform: \n\n";
-      cout << "Analog Frequency (Hz)\tReal Part\tImaginary Part" << endl;
+      cout << "Analog Frequency (Hz)\tReal Part\t\tImaginary Part" << endl;
       for(int i = 0; i < steps ; i++)
       {
           currentFreq = startFreq + stepSize*i; //analog frequency for current DFT value
-          cout << currentFreq << "\t\t\t" << fourier[i].real() << "\t\t" << fourier[i].imag() << endl;
+          cout << currentFreq << "\t\t\t" << fourier[i].real() << "  \t\t" << fourier[i].imag() << endl;
       }
       cout << endl;
       break;
     case '2':
       cout << "Fourier Transform: \n\n";
-      cout << "Analog Frequency (Hz)\tMagnitude\tAngle" << endl;
+      cout << "Analog Frequency (Hz)\tMagnitude\t\tAngle" << endl;
       for(int i = 0; i < steps ; i++)
       {
           currentFreq = startFreq + stepSize*i; //analog frequency for current DFT value
           //cout << currentFreq << "\t\t\t" << fourier[i].abs() << "\t\t" << fourier[i].arg() << endl;
-          cout << currentFreq << "\t\t\t" << abs(fourier[i]) << "\t\t" << arg(fourier[i]) << endl;
+          cout << currentFreq << "\t\t\t" << abs(fourier[i]) << "  \t\t" << arg(fourier[i])*180/pi << endl;
       }
       cout << endl;
       break;
     case '3':
-      //stuff
+      cout << "Rectangular Form: \n\n";
+      cout << "Analog Frequency (Hz)\tReal Part\t\tImaginary Part" << endl;
+      for(int i = 0; i < steps ; i++)
+      {
+          currentFreq = startFreq + stepSize*i; //analog frequency for current DFT value
+          cout << currentFreq << "\t\t\t" << fourier[i].real() << "  \t\t" << fourier[i].imag() << endl;
+      }
+      cout << endl << endl;
+      cout << "Polar Form: \n\n";
+      cout << "Analog Frequency (Hz)\tMagnitude\t\tAngle" << endl;
+      for(int i = 0; i < steps ; i++)
+      {
+          currentFreq = startFreq + stepSize*i; //analog frequency for current DFT value
+          //cout << currentFreq << "\t\t\t" << fourier[i].abs() << "\t\t" << fourier[i].arg() << endl;
+          cout << currentFreq << "\t\t\t" << abs(fourier[i]) << "  \t\t" << arg(fourier[i])*180/pi << endl;
+      }
+      cout << endl;
       break;
     case '0':
       return 1;
       break;
   }
+
+  cout<<"Do you want to export this into a file?\n";
+  cout<<"1: Yes, Rectangular form. \n2: Yes, Polar form. \n 3: No.";
+  cin>>choice2;
+  cout<<"Enter output file name: ";
+  cin>>ofn;
+
+  switch(choice2)
+  {
+    case '1':
+      outfile.open(ofn);
+      for(int i = 0; i < steps ; i++)
+        {
+          currentFreq = startFreq + stepSize*i; //analog frequency for current DFT value
+          outfile << currentFreq << "\t\t\t" << fourier[i].real() << "  \t\t" << fourier[i].imag() << endl;
+        }
+      break;
+    case '2':
+      for(int i = 0; i < steps ; i++)
+      {
+        currentFreq = startFreq + stepSize*i; //analog frequency for current DFT value
+        outfile << currentFreq << "\t\t\t" << abs(fourier[i]) << "  \t\t" << arg(fourier[i])*180/pi << endl;
+      }
+      break;
+    case '3': 
+      break;
+  }
+
   return 0;
 }
