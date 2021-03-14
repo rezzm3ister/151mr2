@@ -178,3 +178,46 @@ void DFT(vector<double> data, vector<complex<double>> &fourier, int steps, doubl
     fourier.push_back(sum);
   }
 }
+
+bool showoutput(vector<complex<double>> fourier, int steps, double startFreq, double stepSize)
+{
+  double currentFreq=0;
+  char choice = 'n';
+  
+  cout<<"Select Output Form\n";
+  cout<<"1: Rectangular Form\n2: Polar Form\n3: Both forms\n0:Exit\n";
+  cout<<"Selection: ";
+  cin>>choice;
+
+  switch(choice)
+  {
+    case '1':
+      cout << "Fourier Transform: \n\n";
+      cout << "Analog Frequency (Hz)\tReal Part\tImaginary Part" << endl;
+      for(int i = 0; i < steps ; i++)
+      {
+          currentFreq = startFreq + stepSize*i; //analog frequency for current DFT value
+          cout << currentFreq << "\t\t\t" << fourier[i].real() << "\t\t" << fourier[i].imag() << endl;
+      }
+      cout << endl;
+      break;
+    case '2':
+      cout << "Fourier Transform: \n\n";
+      cout << "Analog Frequency (Hz)\tMagnitude\tAngle" << endl;
+      for(int i = 0; i < steps ; i++)
+      {
+          currentFreq = startFreq + stepSize*i; //analog frequency for current DFT value
+          //cout << currentFreq << "\t\t\t" << fourier[i].abs() << "\t\t" << fourier[i].arg() << endl;
+          cout << currentFreq << "\t\t\t" << abs(fourier[i]) << "\t\t" << arg(fourier[i]) << endl;
+      }
+      cout << endl;
+      break;
+    case '3':
+      //stuff
+      break;
+    case '0':
+      return 1;
+      break;
+  }
+  return 0;
+}

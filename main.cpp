@@ -55,6 +55,8 @@ int main()
   //complex<double> fourier[steps] = {};
   vector<complex<double>> fourier;
   DFT(data, fourier, steps, startFreq, stepSize, sampleSize);
+
+  while(!showoutput(fourier, steps, startFreq, stepSize));
   /*
   const complex<double> j(0.0,1.0); //define imaginary j
   double pi = 2 * asin(1); //define pi
@@ -85,6 +87,7 @@ int main()
   */
   //===========================================================================
 
+/*
   // SHOW OUTPUT FUNCTION ===================================================== 
   double currentFreq;
   cout << "Fourier Transform: \n\n";
@@ -97,4 +100,5 @@ int main()
   }
   cout << endl;
   //===========================================================================
+  */
 }
