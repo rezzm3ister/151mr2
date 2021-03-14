@@ -148,3 +148,33 @@ void showdata(vector<double> data, string ttype)
   }
   cout << endl;
 }
+
+void DFT(vector<double> data, vector<complex<double>> &fourier, int steps, double startFreq, double stepSize, int sampleSize)
+{
+  const complex<double> j(0.0,1.0); //define imaginary j
+  double pi = 2 * asin(1); //define pi
+  double k; //the current frequency
+
+  //temporary computational variables
+  double exponent;
+  complex<double> sum;
+  int index;
+
+  for (int m = 0; m < steps; m++)
+  {
+    sum = 0;
+    index = 0;
+    k = startFreq + stepSize*m;
+    for (int n = 0; n < sampleSize; n++)
+    {
+      //exponent in DFT formula
+      exponent = (2 * pi * k * n) / sampleSize;
+
+      //applying euler's formula: e^(jx) = cos(x) + j*sin(x)
+      sum = sum + data[index]*(cos(-exponent) + j*sin(-exponent));
+      index++;
+    }
+    //fourier[m] = sum;
+    fourier.push_back(sum);
+  }
+}

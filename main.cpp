@@ -52,7 +52,10 @@ int main()
   stepSize = (endFreq - startFreq) / steps;
 
   //DFT COMPUTATION FUNCTION ==================================================
-  complex<double> fourier[steps] = {};
+  //complex<double> fourier[steps] = {};
+  vector<complex<double>> fourier;
+  DFT(data, fourier, steps, startFreq, stepSize, sampleSize);
+  /*
   const complex<double> j(0.0,1.0); //define imaginary j
   double pi = 2 * asin(1); //define pi
   double k; //the current frequency
@@ -76,8 +79,10 @@ int main()
       sum = sum + data[index]*(cos(-exponent) + j*sin(-exponent));
       index++;
     }
-    fourier[m] = sum;
+    //fourier[m] = sum;
+    fourier.push_back(sum);
   }
+  */
   //===========================================================================
 
   // SHOW OUTPUT FUNCTION ===================================================== 
