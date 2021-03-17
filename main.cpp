@@ -42,54 +42,12 @@ int main()
   cout << "Input number of steps from start to end: ";
   cin >> steps;
 
-  /* -----------NOT YET IMPLEMENTED------------  
-  cout << "Specify output form: "
-       << "\n1 - real and imaginary parts"
-       << "\n2 - magnitude and phase"
-       << "\n3 - both" << endl;
-  cin >> form;
-  --------------------------------------------*/
+
   stepSize = (endFreq - startFreq) / steps;
 
-  //DFT COMPUTATION FUNCTION ==================================================
-  complex<double> fourier[steps] = {};
-  const complex<double> j(0.0,1.0); //define imaginary j
-  double pi = 2 * asin(1); //define pi
-  double k; //the current frequency
+  vector<complex<double>> fourier;
+  DFT(data, fourier, steps, startFreq, stepSize, sampleSize);
 
-  //temporary computational variables
-  double exponent;
-  complex<double> sum;
-  int index;
+  while(!showoutput(fourier, steps, startFreq, stepSize));
 
-  for (int m = 0; m < steps; m++)
-  {
-    sum = 0;
-    index = 0;
-    k = startFreq + stepSize*m;
-    for (int n = 0; n < sampleSize; n++)
-    {
-      //exponent in DFT formula
-      exponent = (2 * pi * k * n) / sampleSize;
-
-      //applying euler's formula: e^(jx) = cos(x) + j*sin(x)
-      sum = sum + data[index]*(cos(-exponent) + j*sin(-exponent));
-      index++;
-    }
-    fourier[m] = sum;
-  }
-  //===========================================================================
-
-  // SHOW OUTPUT FUNCTION ===================================================== 
-  double currentFreq;
-  cout << "Fourier Transform: \n\n";
-
-  cout << "Analog Frequency (Hz)\tReal Part\tImaginary Part" << endl;
-  for(int i = 0; i < steps ; i++)
-  {
-      currentFreq = startFreq + stepSize*i; //analog frequency for current DFT value
-      cout << currentFreq << "\t\t\t" << fourier[i].real() << "\t\t" << fourier[i].imag() << endl;
-  }
-  cout << endl;
-  //===========================================================================
 }
