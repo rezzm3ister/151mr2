@@ -3,6 +3,7 @@
 #include <math.h>
 #include <fstream>
 #include <sstream>
+#include <complex>
 #include "functions.h"
 using namespace std;
 
