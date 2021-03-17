@@ -11,43 +11,19 @@ using namespace std;
 
 int main()
 {
-  vector<double> data; //vectors containing signal values
-  int sampleSize = 0;
-
+  vector<double> data; //vector containing signal values
  
-  while(!datain(data))
-  {
-    //loops until valid file is provided
-  }
-  
-  //GETSIZE FUNCTION ==========================================================
-  for(int i = 0; i < data.size(); i++)
-  {
-    sampleSize++;
-  }
-  //===========================================================================
+  while(!datain(data));
 
-  //shows signal values from file
-  showdata(data,"Data");
+  double sampleFreq = getSampling();
+  double startFreq = getStart();
+  double endFreq = getEnd(startFreq);
+  int steps = getSteps();
 
-  double sampleFreq, startFreq, endFreq, stepSize;
-  int steps, form;
+  double stepSize = getSSize(startFreq, endFreq, steps);
 
-  cout << "\nInput sampling rate (Hz): ";
-  cin >> sampleFreq;
-  cout << "Input start frequency (Hz): ";
-  cin >> startFreq;
-  cout << "Input end frequency (Hz): ";
-  cin >> endFreq;
-  cout << "Input number of steps from start to end: ";
-  cin >> steps;
-
-
-  stepSize = (endFreq - startFreq) / steps;
-
-  vector<complex<double>> fourier;
-  DFT(data, fourier, steps, startFreq, stepSize, sampleSize);
+  vector<double> digital = getDigital(startFreq, steps, stepSize, sampleFreq);
+  vector<complex<double>> fourier = DFT(data, steps, digital);
 
   while(!showoutput(fourier, steps, startFreq, stepSize));
-
 }
