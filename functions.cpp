@@ -240,14 +240,15 @@ bool showoutput(vector<complex<double>> fourier, int steps, double startFreq, do
   }
 
   cout<<"Do you want to export this into a file?\n";
-  cout<<"1: Yes, Rectangular form. \n2: Yes, Polar form. \n 3: No.";
+  cout<<"1: Yes, Rectangular form. \n2: Yes, Polar form. \n3: Yes, output both forms. \n4: No.";
   cin>>choice2;
-  cout<<"Enter output file name: ";
-  cin>>ofn;
-  outfile.open(ofn);
+  
   switch(choice2)
   {
     case '1':
+      cout<<"Enter output file name: ";
+      cin>>ofn;
+      outfile.open(ofn);
       outfile << "Analog Frequency (Hz)\tReal Part\t\tImaginary Part" << endl;
       for(int i = 0; i < steps ; i++)
         {
@@ -256,6 +257,9 @@ bool showoutput(vector<complex<double>> fourier, int steps, double startFreq, do
         }
       break;
     case '2':
+      cout<<"Enter output file name: ";
+      cin>>ofn;
+      outfile.open(ofn);
       outfile << "Analog Frequency (Hz)\tMagnitude\t\tAngle" << endl;
       for(int i = 0; i < steps ; i++)
       {
@@ -263,7 +267,26 @@ bool showoutput(vector<complex<double>> fourier, int steps, double startFreq, do
         outfile << currentFreq << "\t\t\t" << abs(fourier[i]) << "  \t\t" << arg(fourier[i])*180/pi << endl;
       }
       break;
-    case '3': 
+    case '3':
+      cout<<"Enter output file name for Rectangular form: ";
+      cin>>ofn;
+      outfile.open(ofn);
+      outfile << "Analog Frequency (Hz)\tMagnitude\t\tAngle" << endl;
+      for(int i = 0; i < steps ; i++)
+      {
+        currentFreq = startFreq + stepSize*i; //analog frequency for current DFT value
+          outfile << currentFreq << "\t\t\t" << fourier[i].real() << "  \t\t" << fourier[i].imag() << endl;
+      } 
+      outfile.close();
+      cout<<"Enter output file name for Polar form: ";
+      cin>>ofn;
+      outfile.open(ofn);
+      outfile << "Analog Frequency (Hz)\tMagnitude\t\tAngle" << endl;
+      for(int i = 0; i < steps ; i++)
+      {
+        currentFreq = startFreq + stepSize*i; //analog frequency for current DFT value
+        outfile << currentFreq << "\t\t\t" << abs(fourier[i]) << "  \t\t" << arg(fourier[i])*180/pi << endl;
+      }
       break;
   }
   outfile.close();
