@@ -1,20 +1,53 @@
 #include <iostream>
 #include <vector>
 #include <math.h>
+#include <complex>
 #include <fstream>
 #include <sstream>
 #include <string>
 #include "functions.h"
+
 using namespace std;
 
 int main()
 {
-  vector<double> datasig; //vectors containing signal values
-  //int xstart, ystart; //starting indices for each signal
-  //char dtype = 'x';
-  double temp;
- 
+  vector<double> data; //vectors containing signal values
+  int sampleSize = 0;
 
-  datain(datasig);
+ 
+  while(!datain(data))
+  {
+    //loops until valid file is provided
+  }
+  
+  //GETSIZE FUNCTION ==========================================================
+  for(int i = 0; i < data.size(); i++)
+  {
+    sampleSize++;
+  }
+  //===========================================================================
+
+  //shows signal values from file
+  showdata(data,"Data");
+
+  double sampleFreq, startFreq, endFreq, stepSize;
+  int steps, form;
+
+  cout << "\nInput sampling rate (Hz): ";
+  cin >> sampleFreq;
+  cout << "Input start frequency (Hz): ";
+  cin >> startFreq;
+  cout << "Input end frequency (Hz): ";
+  cin >> endFreq;
+  cout << "Input number of steps from start to end: ";
+  cin >> steps;
+
+
+  stepSize = (endFreq - startFreq) / steps;
+
+  vector<complex<double>> fourier;
+  DFT(data, fourier, steps, startFreq, stepSize, sampleSize);
+
+  while(!showoutput(fourier, steps, startFreq, stepSize));
 
 }
