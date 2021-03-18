@@ -20,12 +20,12 @@ int main()
     //loops until valid file is provided
   }
   
-  //GETSIZE FUNCTION ==========================================================
+  //GETSIZE FUNCTION ================================================
   for(int i = 0; i < data.size(); i++)
   {
     sampleSize++;
   }
-  //===========================================================================
+  //=================================================================
 
   //shows signal values from file
   showdata(data,"Data");

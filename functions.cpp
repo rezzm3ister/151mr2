@@ -150,7 +150,8 @@ void showdata(vector<double> data, string ttype)
   cout << endl;
 }
 
-void DFT(vector<double> data, vector<complex<double>> &fourier, int steps, double startFreq, double stepSize, int sampleSize)
+void DFT(vector<double> data, vector<complex<double>> &fourier, 
+        int steps, double startFreq, double stepSize, int sampleSize)
 {
   const complex<double> j(0.0,1.0); //define imaginary j
   const double pi = 2 * asin(1); //define pi
@@ -180,7 +181,8 @@ void DFT(vector<double> data, vector<complex<double>> &fourier, int steps, doubl
   }
 }
 
-bool showoutput(vector<complex<double>> fourier, int steps, double startFreq, double stepSize)
+bool showoutput(vector<complex<double>> fourier, int steps, 
+                double startFreq, double stepSize)
 {
   ofstream outfile;
   string ofn;
@@ -188,7 +190,8 @@ bool showoutput(vector<complex<double>> fourier, int steps, double startFreq, do
   char choice = 'n', choice2 = 'm';
   const double pi = 2 * asin(1);
   cout<<"Select Output Form\n";
-  cout<<"1: Rectangular Form\n2: Polar Form\n3: Both forms\n0: Exit\n";
+  cout<<"1: Rectangular Form\n2: Polar Form\n";
+  cout<<"3: Both forms\n0: Exit\n";
   cout<<"Selection: ";
   cin>>choice;
   cout<<endl<<endl;
@@ -200,8 +203,10 @@ bool showoutput(vector<complex<double>> fourier, int steps, double startFreq, do
       cout << "Analog Frequency (Hz)\tReal Part\t\tImaginary Part" << endl;
       for(int i = 0; i < steps ; i++)
       {
-          currentFreq = startFreq + stepSize*i; //analog frequency for current DFT value
-          cout << currentFreq << "\t\t\t" << fourier[i].real() << "  \t\t" << fourier[i].imag() << endl;
+          currentFreq = startFreq + stepSize*i; 
+          //analog frequency for current DFT value
+          cout << currentFreq << "\t\t\t" << fourier[i].real() 
+               << "  \t\t" << fourier[i].imag() << endl;
       }
       cout << endl;
       break;
@@ -210,9 +215,10 @@ bool showoutput(vector<complex<double>> fourier, int steps, double startFreq, do
       cout << "Analog Frequency (Hz)\tMagnitude\t\tAngle" << endl;
       for(int i = 0; i < steps ; i++)
       {
-          currentFreq = startFreq + stepSize*i; //analog frequency for current DFT value
-          //cout << currentFreq << "\t\t\t" << fourier[i].abs() << "\t\t" << fourier[i].arg() << endl;
-          cout << currentFreq << "\t\t\t" << abs(fourier[i]) << "  \t\t" << arg(fourier[i])*180/pi << endl;
+          currentFreq = startFreq + stepSize*i; 
+          //analog frequency for current DFT value
+          cout << currentFreq << "\t\t\t" << abs(fourier[i]) 
+               << "  \t\t" << arg(fourier[i])*180/pi << endl;
       }
       cout << endl;
       break;
@@ -221,17 +227,20 @@ bool showoutput(vector<complex<double>> fourier, int steps, double startFreq, do
       cout << "Analog Frequency (Hz)\tReal Part\t\tImaginary Part" << endl;
       for(int i = 0; i < steps ; i++)
       {
-          currentFreq = startFreq + stepSize*i; //analog frequency for current DFT value
-          cout << currentFreq << "\t\t\t" << fourier[i].real() << "  \t\t" << fourier[i].imag() << endl;
+          currentFreq = startFreq + stepSize*i; 
+          //analog frequency for current DFT value
+          cout << currentFreq << "\t\t\t" << fourier[i].real() 
+          << "  \t\t" << fourier[i].imag() << endl;
       }
       cout << endl << endl;
       cout << "Polar Form: \n\n";
       cout << "Analog Frequency (Hz)\tMagnitude\t\tAngle" << endl;
       for(int i = 0; i < steps ; i++)
       {
-          currentFreq = startFreq + stepSize*i; //analog frequency for current DFT value
-          //cout << currentFreq << "\t\t\t" << fourier[i].abs() << "\t\t" << fourier[i].arg() << endl;
-          cout << currentFreq << "\t\t\t" << abs(fourier[i]) << "  \t\t" << arg(fourier[i])*180/pi << endl;
+          currentFreq = startFreq + stepSize*i; 
+          //analog frequency for current DFT value
+          cout << currentFreq << "\t\t\t" << abs(fourier[i]) 
+               << "  \t\t" << arg(fourier[i])*180/pi << endl;
       }
       cout << endl;
       break;
@@ -241,7 +250,9 @@ bool showoutput(vector<complex<double>> fourier, int steps, double startFreq, do
   }
 
   cout<<"Do you want to export this into a file?\n";
-  cout<<"1: Yes, Rectangular form. \n2: Yes, Polar form. \n3: Yes, output both forms. \n4: No.";
+  cout<<"1: Yes, Rectangular form. \n2: Yes, Polar form. \n";
+  cout<<"3: Yes, export both forms. \n4: No.\n";
+  cout<<"Selection: ";
   cin>>choice2;
   
   switch(choice2)
@@ -253,8 +264,10 @@ bool showoutput(vector<complex<double>> fourier, int steps, double startFreq, do
       outfile << "Analog Frequency (Hz)\tReal Part\t\tImaginary Part" << endl;
       for(int i = 0; i < steps ; i++)
         {
-          currentFreq = startFreq + stepSize*i; //analog frequency for current DFT value
-          outfile << currentFreq << "\t\t\t" << fourier[i].real() << "  \t\t" << fourier[i].imag() << endl;
+          currentFreq = startFreq + stepSize*i; 
+          //analog frequency for current DFT value
+          outfile << currentFreq << "\t\t\t" << fourier[i].real() 
+          << "  \t\t" << fourier[i].imag() << endl;
         }
       break;
     case '2':
@@ -264,8 +277,10 @@ bool showoutput(vector<complex<double>> fourier, int steps, double startFreq, do
       outfile << "Analog Frequency (Hz)\tMagnitude\t\tAngle" << endl;
       for(int i = 0; i < steps ; i++)
       {
-        currentFreq = startFreq + stepSize*i; //analog frequency for current DFT value
-        outfile << currentFreq << "\t\t\t" << abs(fourier[i]) << "  \t\t" << arg(fourier[i])*180/pi << endl;
+        currentFreq = startFreq + stepSize*i; 
+        //analog frequency for current DFT value
+        outfile << currentFreq << "\t\t\t" << abs(fourier[i]) 
+                << "  \t\t" << arg(fourier[i])*180/pi << endl;
       }
       break;
     case '3':
@@ -275,8 +290,10 @@ bool showoutput(vector<complex<double>> fourier, int steps, double startFreq, do
       outfile << "Analog Frequency (Hz)\tMagnitude\t\tAngle" << endl;
       for(int i = 0; i < steps ; i++)
       {
-        currentFreq = startFreq + stepSize*i; //analog frequency for current DFT value
-          outfile << currentFreq << "\t\t\t" << fourier[i].real() << "  \t\t" << fourier[i].imag() << endl;
+        currentFreq = startFreq + stepSize*i; 
+        //analog frequency for current DFT value
+        outfile << currentFreq << "\t\t\t" << fourier[i].real() 
+                << "  \t\t" << fourier[i].imag() << endl;
       } 
       outfile.close();
       cout<<"Enter output file name for Polar form: ";
@@ -285,8 +302,10 @@ bool showoutput(vector<complex<double>> fourier, int steps, double startFreq, do
       outfile << "Analog Frequency (Hz)\tMagnitude\t\tAngle" << endl;
       for(int i = 0; i < steps ; i++)
       {
-        currentFreq = startFreq + stepSize*i; //analog frequency for current DFT value
-        outfile << currentFreq << "\t\t\t" << abs(fourier[i]) << "  \t\t" << arg(fourier[i])*180/pi << endl;
+        currentFreq = startFreq + stepSize*i; 
+        //analog frequency for current DFT value
+        outfile << currentFreq << "\t\t\t" << abs(fourier[i]) 
+                << "  \t\t" << arg(fourier[i])*180/pi << endl;
       }
       break;
   }
